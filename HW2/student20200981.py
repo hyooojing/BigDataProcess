@@ -41,3 +41,5 @@ for i in range(a + b, a + b + c):
    ws.cell(row = list2[i][0], column = 8).value = "C0"
 for i in range(a + b, a + b + cPlus):
    ws.cell(row = list2[i][0], column = 8).value = "C+"
+
+wb.save("student.xlsx")
