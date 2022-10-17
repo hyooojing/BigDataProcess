@@ -9,7 +9,6 @@ list = []
 row_id = 1
 
 for row in ws:
-<<<<<<< HEAD
    if row_id != 1:
       sum_v = ws.cell(row = row_id, column = 3).value * 0.3
       sum_v += ws.cell(row = row_id, column = 4).value * 0.35
@@ -37,7 +36,6 @@ for i in range(a + b, a + b + cPlus):
    ws.cell(row = list2[i][0], column = 8).value = "C+"
 
 wb.save("student.xlsx")
-=======
 	if row_id != 1:
 		sum_v = ws.cell(row = row_id, column = 3).value * 0.3
 		sum_v += ws.cell(row = row_id, column = 4).value * 0.35
@@ -66,4 +64,3 @@ for i in range(int(student * 0.15)):
 	ws.cell(row = list2[i][0], column = 8).value = "A+"
 
 wb.save("student.xlsx")
->>>>>>> a4daac00046a040fb7f274c5f61f7d27bbeeeb67
