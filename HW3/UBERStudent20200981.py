@@ -22,6 +22,6 @@ for line in f:
 for row in list:
 	d = row[1].split('/')
 	row[1] = what_day(date(int(d[2]), int(d[0]), int(d[1])))
-	w.write(row[0] + "," + row[1] + " " + row[2] + "," + row[3])
+	w.write(row[0] + "," + row[1] + " " + row[2] + "," + row[3] + "\n")
 w.close()
 f.close()
