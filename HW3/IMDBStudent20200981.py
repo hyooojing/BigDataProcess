@@ -13,6 +13,7 @@ for line in f:
 	genre = genres[0].split('|')
 	for g in genre:
 		gList.append(g)
+print(gList)
 for i in gList:
 	if dict.get(i): 
 		dict[i] += 1
