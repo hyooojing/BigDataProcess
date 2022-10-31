@@ -19,8 +19,7 @@ for i in gList:
 	else:
 		dict[i] = 1
 for key, value in dict.items():
-	w.write(key + " ")
-	w.write(str(value) + "\n")
+	w.write(key + " " + str(value) + "\n")
 w.close()
 f.close()
 	
