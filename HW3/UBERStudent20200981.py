@@ -8,14 +8,6 @@ list = []
 d = []
 uberDict = dict()
 
-class uberInfo(object):
-	def __init__(self, name):
-		self.name = name
-	def __str__(self):
-		return self.name
-	def __repr__(self):
-		return "'"+self.name+"'"
-
 def what_day(date):
 	days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 	day = date.weekday()
@@ -23,6 +15,7 @@ def what_day(date):
 
 f = open(rFile, "rt")
 w = open(wFile, "wt")
+
 for line in f:
 	uber = line.split(',')
 	ubers = uber[3].split('\n')
@@ -31,10 +24,18 @@ for line in f:
 for row in list:
 	d = row[1].split('/')
 	row[1] = what_day(date(int(d[2]), int(d[0]), int(d[1])))
-	key = row[0] + ',' + row[1]
-	value = row[2] + ',' + row[3]
-	uberDict[uberInfo(key)] = value
+	key = (row[0], row[1])
+	d[1] = int(row[2])
+	d[2] = int(row[3])
+	value = [d[1], d[2]]
+	if uberDict.get(key):
+		uberDict[key][0] += d[1]
+		uberDict[key][1] += d[2]
+	else:
+		uberDict[key] = value
 for k, v in uberDict.items():
-	w.write(str(k) + "\t" + v + "\n")
+	w.write("%s,%s" %(k[0], k[1]))
+	w.write(" %d,%d\n" %(v[0], v[1]))
+
 w.close()
 f.close()
