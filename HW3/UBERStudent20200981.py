@@ -6,6 +6,15 @@ wFile = sys.argv[2]
 
 list = []
 d = []
+uberDict = dict()
+
+class uberInfo(object):
+	def __init__(self, name):
+		self.name = name
+	def __str__(self):
+		return self.name
+	def __repr__(self):
+		return "'"+self.name+"'"
 
 def what_day(date):
 	days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
@@ -22,6 +31,10 @@ for line in f:
 for row in list:
 	d = row[1].split('/')
 	row[1] = what_day(date(int(d[2]), int(d[0]), int(d[1])))
-	w.write(row[0] + "," + row[1] + "\t" + row[2] + "," + row[3] + "\n")
+	key = row[0] + ',' + row[1]
+	value = row[2] + ',' + row[3]
+	uberDict[uberInfo(key)] = value
+for k, v in uberDict.items():
+	w.write(str(k) + " " + v + "\n")
 w.close()
 f.close()
