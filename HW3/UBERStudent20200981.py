@@ -35,6 +35,6 @@ for row in list:
 	value = row[2] + ',' + row[3]
 	uberDict[uberInfo(key)] = value
 for k, v in uberDict.items():
-	w.write(str(k) + " " + v + "\n")
+	w.write(str(k) + "\t" + v + "\n")
 w.close()
 f.close()
