@@ -4,8 +4,8 @@ from os import listdir
 import operator
 import sys
 
-trainingfile = sys.argv[1]
-testfile = sys.argv[2]
+training = sys.argv[1]
+test = sys.argv[2]
 
 def autoNorm(dataSet):
     minVals = dataSet.min(0)
@@ -31,41 +31,42 @@ def classify0(inX, dataSet, labels, k):
     sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
 
-def makevector(filename) :
-    returnVect = np.zeros((1, 1024))
-    fr = open(filename)
+def vector(fname) :
+    vect = np.zeros((1, 1024))
+    f = open(fname)
     for i in range(32):
-        lineStr = fr.readline()
+        str = f.readline()
         for j in range(32):
-            returnVect[0, 32*i+j] = int(lineStr[j])
-    return returnVect
+            vect[0, 32*i+j] = int(str[j])
+    return vect
 
-def test(k):
+def knn(k):
     labels = []
-    trainingFileList = listdir(trainingfile)
-    m = len(trainingFileList)
-    trainingMat = np.zeros((m, 1024))
+    trainingList = listdir(training)
+    length1 = len(trainingList)
+    trainingMat = np.zeros((length1, 1024))
 
-    for i in range(m):
-        fullfileName = trainingFileList[i]
-        fileName = fullfileName.split('.')[0]
+    for i in range(length1):
+        fullName = trainingList[i]
+        fileName = fullName.split('.')[0]
         classNum = int(fileName.split('_')[0])
         labels.append(classNum)
-        trainingMat[i, :] = makevector('%s/%s' % (trainingfile, fullfileName))
+        trainingMat[i, :] = vector('%s/%s' % (training, fullName))
 
-    testFileList = listdir(testfile)
-    errorCount = 0
-    mTest = len(testFileList)
-    for i in range(mTest):
-        fullfileName = testFileList[i]
-        fileName = fullfileName.split('.')[0]
+    testList = listdir(test)
+    cnt = 0
+    length2 = len(testList)
+    for i in range(length2):
+        fullName = testList[i]
+        fileName = fullName.split('.')[0]
         classNum = int(fileName.split('_')[0])
-        vectorUnderTest = makevector('%s/%s' % (testfile, fullfileName))
-        classifierResult = classify0(vectorUnderTest, trainingMat, labels, k)
-        if (classifierResult != classNum) :
-            errorCount += 1
-    print(int(errorCount / mTest * 100))
+        vectorUnderTest = vector('%s/%s' % (test, fullName))
+        rslt = classify0(vectorUnderTest, trainingMat, labels, k)
+        if rslt != classNum:
+            cnt += 1
+    print(int(cnt / length2 * 100))
 
 if __name__ == "__main__":
 	for i in range(1, 21):
-    		test(i)
+    		knn(i)
+
